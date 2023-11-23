@@ -9,21 +9,21 @@ from esphome.const import (
 DEPENDENCIES = ["i2c"]
 CODEOWNERS = ["@bdemeny"]
 
-hcsr04_i2c_ns = cg.esphome_ns.namespace("hcsr04_i2c")
+hcsr04i2c_ns = cg.esphome_ns.namespace("hcsr04i2c")
 
-HCSR04_I2CComponent = hcsr04_i2c_ns.class_(
-    "HCSR04_I2CComponent", cg.PollingComponent, i2c.I2CDevice, sensor.Sensor
+HCSR04I2CComponent = hcsr04i2c_ns.class_(
+    "HCSR04I2CComponent", cg.PollingComponent, i2c.I2CDevice, sensor.Sensor
 )
 
 CONFIG_SCHEMA = (
     sensor.sensor_schema(
-        HCSR04_I2CComponent,
-        unit_of_measurement="mm",
+        HCSR04I2CComponent,
+        unit_of_measurement="cm",
         accuracy_decimals=0,
         device_class=DEVICE_CLASS_DISTANCE,
         state_class=STATE_CLASS_MEASUREMENT,
     )
-    .extend(cv.polling_component_schema("60s"))
+    .extend(cv.polling_component_schema("1s"))
     .extend(i2c.i2c_device_schema(0x57))
 )
 
